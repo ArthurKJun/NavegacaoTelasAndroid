@@ -3,13 +3,26 @@ package com.senac.navegacaotelas
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.senac.navegacaotelas.screens.About
+import com.senac.navegacaotelas.screens.Profile
+import com.senac.navegacaotelas.screens.Register
 import com.senac.navegacaotelas.ui.theme.NavegacaoTelasTheme
 
 class MainActivity : ComponentActivity() {
@@ -22,7 +35,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    MyApp()
                 }
             }
         }
@@ -30,17 +43,45 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+fun MyApp(){
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    NavegacaoTelasTheme {
-        Greeting("Android")
+   val navControler = rememberNavController()
+
+    Scaffold {
+        Column (
+            modifier = Modifier
+                .padding(it)
+        ){
+            Text(
+                text = "Texto fixo",
+                textAlign = TextAlign.Center,
+                fontSize = 24.sp,
+                modifier = Modifier
+                    .fillMaxWidth()
+            )
+
+            Button(onClick = {navControler.navigate("about")}) {
+                Text(text = "About")
+            }
+
+            Button(onClick = {navControler.navigate("register")}) {
+                Text(text = "Register")
+            }
+
+            NavHost(
+                navController = navControler,
+                startDestination = "profile"
+            ){
+                composable("profile"){
+                    Profile()
+                }
+                composable("about"){
+                    About()
+                }
+                composable("register"){
+                    Register()
+                }
+            }
+        }
     }
 }
