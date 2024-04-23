@@ -68,18 +68,33 @@ fun MyApp(){
                 Text(text = "Register")
             }
 
+            Button(onClick = {navControler.navigate("profile")}) {
+                Text(text = "Profile")
+            }
+
             NavHost(
                 navController = navControler,
                 startDestination = "profile"
             ){
                 composable("profile"){
-                    Profile()
+                    Profile(onProfile = {
+                        navControler.navigate("register")
+                    })
                 }
                 composable("about"){
-                    About()
+                    About(onBack = {
+                        navControler.navigateUp()
+                    })
                 }
                 composable("register"){
-                    Register()
+                    Register(
+                        onBack = {
+                            navControler.navigateUp()
+                        },
+                        onAbout = {
+                            navControler.navigate("about")
+                        }
+                    )
                 }
             }
         }

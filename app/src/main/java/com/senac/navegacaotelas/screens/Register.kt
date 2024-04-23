@@ -1,28 +1,41 @@
 package com.senac.navegacaotelas.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun Register(){
+fun Register(onBack: ()->Unit, onAbout: ()->Unit){
 
     Column (
         modifier = Modifier
             .fillMaxSize()
+            .background(Color.Yellow)
     ){
         Text(
             text = "Register",
             textAlign = TextAlign.Center,
             fontSize = 24.sp,
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxWidth()
         )
+
+        Button(onClick = { onBack() }) {
+            Text(text = "Profile")
+        }
+
+        Button(onClick = { onAbout() }) {
+            Text(text = "About")
+        }
     }
 }
 
@@ -30,5 +43,5 @@ fun Register(){
 @Preview(showBackground = true)
 @Composable
 fun PreviewRegister(){
-    Register()
+    Register(onBack = {}, onAbout = {})
 }
