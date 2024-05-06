@@ -7,6 +7,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.BottomNavigation
+import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material.Icon
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -47,12 +54,53 @@ fun MyApp(){
 
    val navControler = rememberNavController()
 
-    Scaffold {
+    Scaffold (
+        bottomBar = {
+
+            BottomNavigation {
+
+                BottomNavigationItem(
+                    selected = true,
+                    onClick = { navControler.navigate("profile") },
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Filled.Home,
+                            contentDescription = ""
+                        )
+                    }
+                )
+
+                BottomNavigationItem(
+                    selected = false,
+                    onClick = { navControler.navigate("register") },
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Filled.AddCircle,
+                            contentDescription = ""
+                        )
+                    }
+                )
+
+                BottomNavigationItem(
+                    selected = false,
+                    onClick = { navControler.navigate("about") },
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Default.MailOutline,
+                            contentDescription = ""
+                        )
+                    }
+                )
+
+            }
+
+        }
+    ){
         Column (
             modifier = Modifier
                 .padding(it)
         ){
-            Text(
+           /* Text(
                 text = "Texto fixo",
                 textAlign = TextAlign.Center,
                 fontSize = 24.sp,
@@ -70,7 +118,7 @@ fun MyApp(){
 
             Button(onClick = {navControler.navigate("profile")}) {
                 Text(text = "Profile")
-            }
+            }*/
 
             NavHost(
                 navController = navControler,
